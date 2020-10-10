@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import GlobalFonts from './fonts/Fonts';
 import styled from 'styled-components/macro';
 import {DigitalBox} from "./common-style";
