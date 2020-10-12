@@ -9,5 +9,6 @@ export const DigitalBox = styled.div`
     text-shadow: 0 0 9px rgba(255, 0, 0, 1);
     text-align: right;
     color: red;
+    cursor: pointer;
     padding: 10px 10px 0;
 `;

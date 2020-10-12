@@ -2,13 +2,27 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components/macro';
 import {DigitalBox} from "./common-style";
 import {padWidthZero} from "./utils";
+import Buzzer from './Buzzer.mp3';
+
+const StyledTimer = styled.div`
+    display: flex;
+    flex-direction: column;
+    
+`;
 
 const Time = styled(DigitalBox)`
     font-size: 125px;
+    height: 150px;
     width: 327px;
 `;
 
+const Controls = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
 const Penalty = styled(DigitalBox)`
+    padding-bottom: 5px;
     font-size: 30px;
     width: 90px;
 `;
@@ -19,9 +33,19 @@ const Timer = ({penalty, minutes, seconds=0}) => {
     const [paused, setPaused] = useState(true);
     const [over, setOver] = useState(false);
 
+    let audio = new Audio(Buzzer);
+
     const tick = () => {
         if (paused || over) return;
-        if (time.minutes === 0 && time.seconds === 0) setOver(true);
+        if (time.minutes === 0 && time.seconds === 1) {
+            if(!penalty) {
+                audio.play();
+            }
+        }
+        if (time.minutes === 0 && time.seconds === 0) {
+            setOver(true);
+        }
+
         else if (time.seconds === 0) {
             setTime({
                 minutes: time.minutes - 1,
@@ -35,7 +59,7 @@ const Timer = ({penalty, minutes, seconds=0}) => {
         }
     };
 
-    const reset = () => {
+    const pauseAndPlay = () => {
         if (paused) {
 
         setTime({
@@ -54,18 +78,29 @@ const Timer = ({penalty, minutes, seconds=0}) => {
         return () => clearInterval(timerID);
     });
 
+    const reset = () => {
+        setPaused(true);
+        setTime({minutes: minutes, seconds: seconds});
+    }
+
 
     if(penalty) {
         return (
-            <Penalty onClick={reset}>
+            <>
+            <Penalty onClick={pauseAndPlay}>
                 {padWidthZero(time.minutes)}:{padWidthZero(time.seconds)}
             </Penalty>
+            <p onClick={reset}>Reset</p>
+            </>
         )
     } else {
         return (
-            <Time onClick={reset}>
-                {padWidthZero(time.minutes)}:{padWidthZero(time.seconds)}
-            </Time>
+            <StyledTimer>
+                <Time onClick={pauseAndPlay}>
+                    {padWidthZero(time.minutes)}:{padWidthZero(time.seconds)}
+                </Time>
+                <Controls><span onClick={pauseAndPlay}>{paused ? 'Start' : 'Pause'}</span><span onClick={reset}>Reset</span><span onClick={() => audio.play()}>Horn</span></Controls>
+            </StyledTimer>
         )
     }
 }
