@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import {DigitalBox} from "./common-style";
 import {padWidthZero} from "./utils";
 import Buzzer from './Buzzer.mp3';
+import Svg from "./Svg";
 
 const StyledTimer = styled.div`
     display: flex;
@@ -90,7 +91,13 @@ const Timer = ({penalty, minutes, seconds=0}) => {
             <Penalty onClick={pauseAndPlay}>
                 {padWidthZero(time.minutes)}:{padWidthZero(time.seconds)}
             </Penalty>
-            <p onClick={reset}>Reset</p>
+            <Controls>
+                {paused ?
+                    <Svg type='play' onClick={pauseAndPlay}/> :
+                    <Svg type={'pause'} onClick={pauseAndPlay} />
+                }
+                <Svg type={'restart'} onClick={reset} />
+            </Controls>
             </>
         )
     } else {
@@ -99,7 +106,14 @@ const Timer = ({penalty, minutes, seconds=0}) => {
                 <Time onClick={pauseAndPlay}>
                     {padWidthZero(time.minutes)}:{padWidthZero(time.seconds)}
                 </Time>
-                <Controls><span onClick={pauseAndPlay}>{paused ? 'Start' : 'Pause'}</span><span onClick={reset}>Reset</span><span onClick={() => audio.play()}>Horn</span></Controls>
+                <Controls>
+                    {paused ?
+                        <Svg type='play' onClick={pauseAndPlay}/> :
+                        <Svg type={'pause'} onClick={pauseAndPlay} />
+                    }
+                    <Svg type={'restart'} onClick={reset} />
+                    <Svg type={'sound'} onClick={() => audio.play()} />
+                </Controls>
             </StyledTimer>
         )
     }
