@@ -29,7 +29,7 @@ const Penalty = styled(DigitalBox)`
 `;
 
 
-const Timer = ({penalty, minutes, seconds=0}) => {
+const Timer = ({penalty, minutes, seconds=0, onClick}) => {
     const [time, setTime] = useState({minutes: minutes, seconds: seconds});
     const [paused, setPaused] = useState(true);
     const [over, setOver] = useState(false);
@@ -113,6 +113,7 @@ const Timer = ({penalty, minutes, seconds=0}) => {
                     }
                     <Svg type={'restart'} onClick={reset} />
                     <Svg type={'sound'} onClick={() => audio.play()} />
+                    <Svg type={'settings'} onClick={onClick} />
                 </Controls>
             </StyledTimer>
         )
