@@ -104,9 +104,9 @@ const App = () => {
 
   const updatePeriodTime = (type, time) => {
     if (type === 'minutes') {
-      setPeriodTime({...periodTime, minutes: time})
+      setPeriodTime({...periodTime, minutes: parseInt(time)})
     } else {
-      setPeriodTime({...periodTime, seconds: time})
+      setPeriodTime({...periodTime, seconds: parseInt(time)})
     }
   }
 
