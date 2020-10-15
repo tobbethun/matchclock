@@ -1,7 +1,6 @@
 import styled from 'styled-components/macro';
 import './index.css';
 
-
 export const DigitalBox = styled.div`
     border: 5px solid white;
     border-radius: 10px;

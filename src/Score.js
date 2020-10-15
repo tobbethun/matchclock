@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
-import {DigitalBox} from "./common-style";
-import {padWidthZero} from "./utils";
+import { DigitalBox } from './common-style';
+import { padWidthZero } from './utils';
 
 const ScoreBox = styled(DigitalBox)`
-   font-size: 80px;
-   width: 88px;
+    font-size: 80px;
+    width: 88px;
 `;
 
 const EditScore = styled.div`
@@ -20,14 +20,15 @@ const EditScore = styled.div`
 
 const Score = () => {
     const [score, setScore] = useState(0);
-     return (
-         <>
-            <ScoreBox onClick={()=>setScore(score + 1)}>{padWidthZero(score)}</ScoreBox>
-             <EditScore>
-                 <span onClick={()=>setScore(score + 1)}>+</span><span onClick={()=>setScore(score - 1)}>-</span>
-             </EditScore>
-         </>
-     )
-}
+    return (
+        <>
+            <ScoreBox onClick={() => setScore(score + 1)}>{padWidthZero(score)}</ScoreBox>
+            <EditScore>
+                <span onClick={() => setScore(score + 1)}>+</span>
+                <span onClick={() => setScore(score - 1)}>-</span>
+            </EditScore>
+        </>
+    );
+};
 
 export default Score;

@@ -11,33 +11,38 @@ const SvgContainer = styled.div`
     width: 20px;
 `;
 
-const Svg = ({type, onClick}) => {
-    if (type === 'play') return (
-        <SvgContainer onClick={onClick}>
-            <img src={Play} alt="play"/>
-        </SvgContainer>
-    )
+const Svg = ({ type, onClick }) => {
+    if (type === 'play')
+        return (
+            <SvgContainer onClick={onClick}>
+                <img src={Play} alt='play' />
+            </SvgContainer>
+        );
 
-    if (type === 'pause') return (
-        <SvgContainer onClick={onClick}>
-            <img src={Pause} alt="Pause"/>
-        </SvgContainer>
-    )
-    if (type === 'restart') return (
-        <SvgContainer onClick={onClick}>
-            <img src={Restart} alt="restart"/>
-        </SvgContainer>
-    )
-    if (type === 'sound') return (
-        <SvgContainer onClick={onClick}>
-            <img src={Sound} alt="sound"/>
-        </SvgContainer>
-    )
-    if (type === 'settings') return (
-        <SvgContainer onClick={onClick}>
-            <img src={Settings} alt="settings"/>
-        </SvgContainer>
-    )
-}
+    if (type === 'pause')
+        return (
+            <SvgContainer onClick={onClick}>
+                <img src={Pause} alt='Pause' />
+            </SvgContainer>
+        );
+    if (type === 'restart')
+        return (
+            <SvgContainer onClick={onClick}>
+                <img src={Restart} alt='restart' />
+            </SvgContainer>
+        );
+    if (type === 'sound')
+        return (
+            <SvgContainer onClick={onClick}>
+                <img src={Sound} alt='sound' />
+            </SvgContainer>
+        );
+    if (type === 'settings')
+        return (
+            <SvgContainer onClick={onClick}>
+                <img src={Settings} alt='settings' />
+            </SvgContainer>
+        );
+};
 
 export default Svg;

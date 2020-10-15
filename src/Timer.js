@@ -1,14 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import {DigitalBox} from "./common-style";
-import {padWidthZero} from "./utils";
+import { DigitalBox } from './common-style';
+import { padWidthZero } from './utils';
 import Buzzer from './Buzzer.mp3';
-import Svg from "./Svg";
+import Svg from './Svg';
 
 const StyledTimer = styled.div`
     display: flex;
     flex-direction: column;
-    
 `;
 
 const Time = styled(DigitalBox)`
@@ -28,9 +27,8 @@ const Penalty = styled(DigitalBox)`
     width: 90px;
 `;
 
-
-const Timer = ({penalty, minutes, seconds=0, onClick}) => {
-    const [time, setTime] = useState({minutes: minutes, seconds: seconds});
+const Timer = ({ penalty, minutes, seconds = 0, onClick }) => {
+    const [time, setTime] = useState({ minutes: minutes, seconds: seconds });
     const [paused, setPaused] = useState(true);
     const [over, setOver] = useState(false);
 
@@ -39,36 +37,33 @@ const Timer = ({penalty, minutes, seconds=0, onClick}) => {
     const tick = () => {
         if (paused || over) return;
         if (time.minutes === 0 && time.seconds === 1) {
-            if(!penalty) {
+            if (!penalty) {
                 audio.play();
             }
         }
         if (time.minutes === 0 && time.seconds === 0) {
             setOver(true);
-        }
-
-        else if (time.seconds === 0) {
+        } else if (time.seconds === 0) {
             setTime({
                 minutes: time.minutes - 1,
-                seconds: 59
+                seconds: 59,
             });
         } else {
             setTime({
                 minutes: time.minutes,
-                seconds: time.seconds - 1
+                seconds: time.seconds - 1,
             });
         }
     };
 
     const pauseAndPlay = () => {
         if (paused) {
-
-        setTime({
-            minutes: time.minutes,
-            seconds: time.seconds
-        });
-        setPaused(false);
-        setOver(false);
+            setTime({
+                minutes: time.minutes,
+                seconds: time.seconds,
+            });
+            setPaused(false);
+            setOver(false);
         } else {
             setPaused(true);
         }
@@ -81,25 +76,25 @@ const Timer = ({penalty, minutes, seconds=0, onClick}) => {
 
     const reset = () => {
         setPaused(true);
-        setTime({minutes: minutes, seconds: seconds});
-    }
+        setTime({ minutes: minutes, seconds: seconds });
+    };
 
-
-    if(penalty) {
+    if (penalty) {
         return (
             <>
-            <Penalty onClick={pauseAndPlay}>
-                {padWidthZero(time.minutes)}:{padWidthZero(time.seconds)}
-            </Penalty>
-            <Controls>
-                {paused ?
-                    <Svg type='play' onClick={pauseAndPlay}/> :
-                    <Svg type={'pause'} onClick={pauseAndPlay} />
-                }
-                <Svg type={'restart'} onClick={reset} />
-            </Controls>
+                <Penalty onClick={pauseAndPlay}>
+                    {padWidthZero(time.minutes)}:{padWidthZero(time.seconds)}
+                </Penalty>
+                <Controls>
+                    {paused ? (
+                        <Svg type='play' onClick={pauseAndPlay} />
+                    ) : (
+                        <Svg type={'pause'} onClick={pauseAndPlay} />
+                    )}
+                    <Svg type={'restart'} onClick={reset} />
+                </Controls>
             </>
-        )
+        );
     } else {
         return (
             <StyledTimer>
@@ -107,17 +102,18 @@ const Timer = ({penalty, minutes, seconds=0, onClick}) => {
                     {padWidthZero(time.minutes)}:{padWidthZero(time.seconds)}
                 </Time>
                 <Controls>
-                    {paused ?
-                        <Svg type='play' onClick={pauseAndPlay}/> :
+                    {paused ? (
+                        <Svg type='play' onClick={pauseAndPlay} />
+                    ) : (
                         <Svg type={'pause'} onClick={pauseAndPlay} />
-                    }
+                    )}
                     <Svg type={'restart'} onClick={reset} />
                     <Svg type={'sound'} onClick={() => audio.play()} />
                     <Svg type={'settings'} onClick={onClick} />
                 </Controls>
             </StyledTimer>
-        )
+        );
     }
-}
+};
 
 export default Timer;
